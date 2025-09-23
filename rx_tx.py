@@ -240,7 +240,8 @@ with open(input_file, newline="", encoding="utf-8") as f_in, \
         prev_tx = tx_MB
 
 
-index = st.number_input("Zadej index záznamu", min_value=0, max_value=len(df)-1, value=0)
+# Kombo box s čísly záznamů
+index = st.selectbox("Vyber číslo záznamu", options=list(range(len(df))))
 
 if st.button("📍 Zobrazit vybraný záznam"):
     formatted_ts = df["timestamp"].iloc[index].strftime("%d.%m.%y %H:%M")
