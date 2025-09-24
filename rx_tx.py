@@ -240,9 +240,10 @@ with open(input_file, newline="", encoding="utf-8") as f_in, \
         prev_tx = tx_MB
 
 
-# Kombo box s čísly záznamů
-index = st.selectbox("Vyber číslo záznamu", options=list(range(len(df))))
-
+# Kombo box s timestamp
+df["timestamp_str"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
+index = df[df["timestamp_str"]
+           
 if st.button("📍 Zobrazit vybraný záznam"):
     formatted_ts = df["timestamp"].iloc[index].strftime("%d.%m.%y %H:%M")
     rx_val = round(df["delta_rx_MB"].iloc[index], 2)
