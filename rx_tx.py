@@ -241,8 +241,30 @@ with open(input_file, newline="", encoding="utf-8") as f_in, \
 
 
 # Kombo box s timestamp
-df["timestamp_str"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
-index = df[df["timestamp_str"]
+
+# CSS pro zúžení selectboxu
+st.markdown("""
+    <style>
+    div[data-baseweb="select"] {
+        max-width: 250px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Formátovaný timestamp jako text
+timestamps_str = df["timestamp"].dt.strftime("%d.%m.%Y %H:%M")
+
+# Selectbox s užší šířkou
+selected_time_str = st.selectbox("Vyber čas záznamu", options=timestamps_str)
+
+# Najdi odpovídající index v DataFrame
+index = df[df["timestamp"].dt.strftime("%d.%m.%Y %H:%M") == selected_time_str].index[0]
+
+# index = st.selectbox(
+#     "Vyber čas záznamu",
+#     options=df["timestamp"].dt.strftime("%d.%m.%Y %H:%M")
+# )
+
            
 if st.button("📍 Zobrazit vybraný záznam"):
     formatted_ts = df["timestamp"].iloc[index].strftime("%d.%m.%y %H:%M")
