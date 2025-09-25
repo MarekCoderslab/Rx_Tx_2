@@ -13,6 +13,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
+st.title("Pilový graf přenosu dat Palackého 209")
+st.subheader("Vizualizace RX toku s výpočtem MB/hod")
+
 # Převod timestamp
 df_counter["timestamp"] = pd.to_datetime(df_counter["timestamp"])
 
