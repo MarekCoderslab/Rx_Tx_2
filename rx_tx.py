@@ -332,14 +332,14 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Formátovaný timestamp jako text
-timestamps_str = df["timestamp"].dt.strftime("%d.%m.%Y %H:%M")
+# # Formátovaný timestamp jako text
+# timestamps_str = df["timestamp"].dt.strftime("%d.%m.%Y %H:%M")
 
-# Selectbox s užší šířkou
-selected_time_str = st.selectbox("Vyber čas záznamu", options=timestamps_str)
+# # Selectbox s užší šířkou
+# selected_time_str = st.selectbox("Vyber čas záznamu", options=timestamps_str)
 
-# Najdi odpovídající index v DataFrame
-index = df[df["timestamp"].dt.strftime("%d.%m.%Y %H:%M") == selected_time_str].index[0]
+# # Najdi odpovídající index v DataFrame
+# index = df[df["timestamp"].dt.strftime("%d.%m.%Y %H:%M") == selected_time_str].index[0]
 
 # index = st.selectbox(
 #     "Vyber čas záznamu",
@@ -365,6 +365,6 @@ if st.button("📍 Zobrazit vybraný záznam"):
     rx_val = round(df_reversed["delta_rx_MB"].iloc[index], 2)
     tx_val = round(df_reversed["delta_tx_MB"].iloc[index], 2)
 
-st.write(f"**Čas:** {formatted_ts}")
-st.write(f"📥 RX: {rx_val} MB")
-st.write(f"📤 TX: {tx_val} MB")
+    st.write(f"**Čas:** {formatted_ts}")
+    st.write(f"📥 RX: {rx_val} MB")
+    st.write(f"📤 TX: {tx_val} MB")
