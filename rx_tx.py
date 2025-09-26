@@ -175,7 +175,8 @@ if os.path.exists("iface_stats.csv"):
 
     st.subheader("📊 Poslední záznamy")
     # změna formátu datumu
-    df_display = df.copy()
+    # df_display = df.copy()
+    df_display = df.sort_values("timestamp", ascending=False).copy()
     df_display["timestamp"] = df_display["timestamp"].dt.strftime("%d.%m.%y %H:%M")
     # Zaokrouhlení na 1 desetinné místo
     df_display["delta_rx_MB"] = df_display["delta_rx_MB"].round(1)
@@ -186,7 +187,7 @@ if os.path.exists("iface_stats.csv"):
     # html_table = df_display[["row_id", "timestamp", "delta_rx_MB", "delta_tx_MB"]].tail(5).to_html(index=False)
     
     df_tail = df_display[["timestamp", "delta_rx_MB", "delta_tx_MB"]].tail(5).reset_index(drop=True)
-    html_table = df_tail.to_html(index=True)
+    html_table = df_tail.to_html(index=False)
 
     # Přepiš zarovnání v <th> i <td>
     html_table = html_table.replace('text-align: right;', 'text-align: center !important;')
@@ -342,11 +343,12 @@ index = df[df["timestamp"].dt.strftime("%d.%m.%Y %H:%M") == selected_time_str].i
 #     options=df["timestamp"].dt.strftime("%d.%m.%Y %H:%M")
 # )
 
+df_reversed = df.sort_values("timestamp", ascending=False).reset_index(drop=True)
            
 if st.button("📍 Zobrazit vybraný záznam"):
-    formatted_ts = df["timestamp"].iloc[index].strftime("%d.%m.%y %H:%M")
-    rx_val = round(df["delta_rx_MB"].iloc[index], 2)
-    tx_val = round(df["delta_tx_MB"].iloc[index], 2)
+    formatted_ts = df_reversed["timestamp"].iloc[index].strftime("%d.%m.%y %H:%M")
+    rx_val = round(df_reversed["delta_rx_MB"].iloc[index], 2)
+    tx_val = round(df_reversed["delta_tx_MB"].iloc[index], 2)
 
     st.write(f"🕒 Čas: {formatted_ts}")
     st.write(f"📦 RX: {rx_val} MB")
