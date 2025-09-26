@@ -56,7 +56,7 @@ for i in range(1, len(df_counter)):
     })
 
 # Finalizace grafu
-ax.set_title("Pilový graf RX s podílem MB/hod")
+# ax.set_title("Pilový graf RX s podílem MB/hod")
 ax.set_xlabel("Čas")
 ax.set_ylabel("Příchozí data [MB]")
 ax.xaxis.set_major_formatter(mdates.DateFormatter("%d.%m. %H:%M"))
@@ -186,7 +186,7 @@ if os.path.exists("iface_stats.csv"):
     # html_table = df_display[["row_id", "timestamp", "delta_rx_MB", "delta_tx_MB"]].tail(5).to_html(index=False)
     
     df_tail = df_display[["timestamp", "delta_rx_MB", "delta_tx_MB"]].tail(5).reset_index(drop=True)
-    html_table = df_tail.to_html(index=False)
+    html_table = df_tail.to_html(index=True)
 
     # Přepiš zarovnání v <th> i <td>
     html_table = html_table.replace('text-align: right;', 'text-align: center !important;')
@@ -262,8 +262,8 @@ if os.path.exists("iface_stats.csv"):
     # ax1.bar(x[highlight_idx] - bar_width/2, rx.iloc[highlight_idx], width=bar_width, color="darkblue", label="RX (označený)", alpha=1)
     # ax2.bar(x[highlight_idx] + bar_width/2, tx.iloc[highlight_idx], width=bar_width, color="darkred", alpha=1, bottom=rx.iloc[highlight_idx])###
 
-    ax1.set_ylim(0, 200)     # RX osa: 0 až 200 MB
-    ax2.set_ylim(0, 2000)    # TX osa: 0 až 2000 MB
+    # ax1.set_ylim(0, 200)     # RX osa: 0 až 200 MB
+    # ax2.set_ylim(0, 2000)    # TX osa: 0 až 2000 MB
     
     ax1.xaxis_date()
     ax1.xaxis.set_major_formatter(mdates.DateFormatter("%d.%m. %H:%M"))
