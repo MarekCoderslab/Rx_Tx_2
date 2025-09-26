@@ -346,13 +346,25 @@ index = df[df["timestamp"].dt.strftime("%d.%m.%Y %H:%M") == selected_time_str].i
 #     options=df["timestamp"].dt.strftime("%d.%m.%Y %H:%M")
 # )
 
+# od nejnovějšího po nejstarší
 df_reversed = df.sort_values("timestamp", ascending=False).reset_index(drop=True)
+
+# vytvoř seznam pro combobox
+options = [
+    ts.strftime("%d.%m.%y %H:%M") for ts in df_reversed["timestamp"]
+]
+
+# combobox s defaultní volbou na nejnovější záznam (index 0)
+selected_label = st.selectbox("Vyber datum", options, index=0)
+
+# najdi index vybraného záznamu
+index = options.index(selected_label)
 
 if st.button("📍 Zobrazit vybraný záznam"):
     formatted_ts = df_reversed["timestamp"].iloc[index].strftime("%d.%m.%y %H:%M")
     rx_val = round(df_reversed["delta_rx_MB"].iloc[index], 2)
     tx_val = round(df_reversed["delta_tx_MB"].iloc[index], 2)
 
-    st.write(f"🕒 Čas: {formatted_ts}")
-    st.write(f"📦 RX: {rx_val} MB")
+    st.write(f"**Čas:** {formatted_ts}")
+    st.write(f"📥 RX: {rx_val} MB")
     st.write(f"📤 TX: {tx_val} MB")
