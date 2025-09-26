@@ -66,5 +66,7 @@ st.pyplot(fig)
 
 # Zobrazení tabulky
 df_rx_table = pd.DataFrame(rows)
+# Obrácení pořadí
+df_rx_table = df_rx_table.iloc[::-1]
 st.subheader("Tabulka výpočtu MB/hod")
 st.dataframe(df_rx_table)
