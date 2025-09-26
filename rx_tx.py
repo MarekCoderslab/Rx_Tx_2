@@ -346,12 +346,12 @@ index = df[df["timestamp"].dt.strftime("%d.%m.%Y %H:%M") == selected_time_str].i
 #     options=df["timestamp"].dt.strftime("%d.%m.%Y %H:%M")
 # )
 
+df_reversed = df.sort_values("timestamp", ascending=False).reset_index(drop=True)
 
 if st.button("📍 Zobrazit vybraný záznam"):
-    formatted_ts = df["timestamp"].iloc[index].strftime("%d.%m.%y %H:%M")
-    formatted_ts = formatted_ts[::-1]  # obrácení pořadí
-    rx_val = round(df["delta_rx_MB"].iloc[index], 2)
-    tx_val = round(df["delta_tx_MB"].iloc[index], 2)
+    formatted_ts = df_reversed["timestamp"].iloc[index].strftime("%d.%m.%y %H:%M")
+    rx_val = round(df_reversed["delta_rx_MB"].iloc[index], 2)
+    tx_val = round(df_reversed["delta_tx_MB"].iloc[index], 2)
 
     st.write(f"🕒 Čas: {formatted_ts}")
     st.write(f"📦 RX: {rx_val} MB")
