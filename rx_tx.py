@@ -365,6 +365,6 @@ if st.button("📍 Zobrazit vybraný záznam"):
     rx_val = round(df_reversed["delta_rx_MB"].iloc[index], 2)
     tx_val = round(df_reversed["delta_tx_MB"].iloc[index], 2)
 
-    st.write(f"**Čas:** {formatted_ts}")
-    st.write(f"📥 RX: {rx_val} MB")
-    st.write(f"📤 TX: {tx_val} MB")
+st.write(f"**Čas:** {formatted_ts}")
+st.write(f"📥 RX: {rx_val} MB")
+st.write(f"📤 TX: {tx_val} MB")
