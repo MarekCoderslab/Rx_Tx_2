@@ -160,12 +160,13 @@ if st.button("📥 Načíst aktuální data z API"):
     row = fetch_and_save()
     if row:
         st.success(f"Uloženo: {row}")
+        st.rerun()
 
 
 
 # --- Načtení a zpracování dat ---
 if os.path.exists("/Users/Marek/tableau_project/Rx_Tx/iface_stats.csv"):
-    df = pd.read_csv("iface_stats.csv")
+    df = pd.read_csv("/Users/Marek/tableau_project/Rx_Tx/iface_stats.csv")
     df["rx_MB"] = df["rx_bytes"].fillna(0).astype(float) / BYTES_IN_MB
     df["tx_MB"] = df["tx_bytes"].fillna(0).astype(float) / BYTES_IN_MB
     df["delta_rx_MB"] = df["rx_MB"].diff().fillna(0)
@@ -284,8 +285,8 @@ import csv
 
 BYTES_IN_MB = 1048576  # 1 MB = 1024*1024 B
 
-input_file = "iface_stats.csv"
-output_file = "rozdily_counter.csv"
+input_file = "/Users/Marek/tableau_project/Rx_Tx/iface_stats.csv"
+output_file = "/Users/Marek/tableau_project/Rx_Tx/rozdily_counter.csv"
 
 with open(input_file, newline="", encoding="utf-8") as f_in, \
      open(output_file, "w", newline="", encoding="utf-8") as f_out:
