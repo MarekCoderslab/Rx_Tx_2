@@ -54,6 +54,11 @@ for i in range(1, len(df_counter)):
         "delta_hours": round(delta_hours, 2),
         "MB_per_hour": round(mb_per_hour, 1)
     })
+# uložení  výpočtů do CSV
+# Převedení seznamu slovníků na DataFrame
+df = pd.DataFrame(rows)
+# Uložení do souboru
+df.to_csv("/Users/Marek/tableau_project/Rx_Tx/rx_tx_summary.csv", index=False, encoding="utf-8")
 
 # Finalizace grafu
 # ax.set_title("Pilový graf RX s podílem MB/hod")
@@ -151,6 +156,35 @@ def fetch_and_save():
         writer.writerow(row)
 
     return row
+
+
+
+# Načtení dat ze souboru rx_tx_summary.csv
+csv_path = "/Users/Marek/tableau_project/Rx_Tx/rx_tx_summary.csv"
+df = pd.read_csv(csv_path)
+
+# Převedení sloupce end_time na datetime
+df["end_time"] = pd.to_datetime(df["end_time"], format="%d.%m.%y %H:%M")
+
+# Předpoklad: df["end_time"] je typu datetime
+fig, ax = plt.subplots()
+ax.plot(df["end_time"], df["MB_per_hour"], marker="o", linestyle="-", color="dodgerblue")
+
+# Formát osy X: dd-mm-rr
+ax.xaxis.set_major_formatter(mdates.DateFormatter("%d.%m.%y"))
+
+# Natočení popisků osy X o 45°
+plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
+
+# Popisky os
+ax.set_xlabel("Čas ukončení úseku")
+ax.set_ylabel("Rychlost přenosu [MB/hod]")
+ax.set_title("Vývoj přenosové rychlosti v čase")
+ax.grid(True)
+
+# Zobrazení ve Streamlitu
+st.pyplot(fig)
+
 
 
 # --- Streamlit UI ---
@@ -369,3 +403,4 @@ if st.button("📍 Zobrazit vybraný záznam"):
     st.write(f"**Čas:** {formatted_ts}")
     st.write(f"📥 RX: {rx_val} MB")
     st.write(f"📤 TX: {tx_val} MB")
+
