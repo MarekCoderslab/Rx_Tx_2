@@ -258,7 +258,7 @@ if os.path.exists("/Users/Marek/tableau_project/Rx_Tx/iface_stats.csv"):
     st.markdown(html_table, unsafe_allow_html=True)
     
     # Získání timestampu z tabulky
-    reference_ts_str = df_tail["timestamp"].iloc[0]
+    reference_ts_str = df_tail["timestamp"].iloc[4]
 
     # Převedení na datetime + časové pásmo
     reference_ts = pd.to_datetime(reference_ts_str, format="%d.%m.%y %H:%M")
