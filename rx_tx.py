@@ -2,7 +2,7 @@ import pandas as pd
 
 BYTES_IN_MB = 1048576
 
-df_counter = pd.read_csv("/Users/Marek/tableau_project/Rx_Tx/iface_stats.csv")
+df_counter = pd.read_csv("iface_stats.csv")
 df_counter["rx_MB"] = df_counter["rx_bytes"].fillna(0).astype(float) / BYTES_IN_MB
 df_counter["tx_MB"] = df_counter["tx_bytes"].fillna(0).astype(float) / BYTES_IN_MB
 df_counter["delta_rx_MB"] = df_counter["rx_MB"].diff().fillna(0)
@@ -58,7 +58,7 @@ for i in range(1, len(df_counter)):
 # Převedení seznamu slovníků na DataFrame
 df = pd.DataFrame(rows)
 # Uložení do souboru
-df.to_csv("/Users/Marek/tableau_project/Rx_Tx/rx_tx_summary.csv", index=False, encoding="utf-8")
+df.to_csv("rx_tx_summary.csv", index=False, encoding="utf-8")
 
 # Finalizace grafu
 # ax.set_title("Pilový graf RX s podílem MB/hod")
@@ -146,7 +146,7 @@ def fetch_and_save():
     row = {"timestamp": ts, "mac": norm_mac(TARGET_MAC), "rx_bytes": rx, "tx_bytes": tx}
 
     # Uložení do CSV
-    csv_path = "/Users/Marek/tableau_project/Rx_Tx/iface_stats.csv"
+    csv_path = "iface_stats.csv"
     header = ["timestamp", "mac", "rx_bytes", "tx_bytes"]
     exists = os.path.exists(csv_path)
     with open(csv_path, "a", newline="", encoding="utf-8") as f:
@@ -160,7 +160,7 @@ def fetch_and_save():
 
 
 # Načtení dat ze souboru rx_tx_summary.csv
-csv_path = "/Users/Marek/tableau_project/Rx_Tx/rx_tx_summary.csv"
+csv_path = "rx_tx_summary.csv"
 df = pd.read_csv(csv_path)
 
 # Převedení sloupce end_time na datetime
@@ -199,8 +199,8 @@ if st.button("📥 Načíst aktuální data z API"):
 
 
 # --- Načtení a zpracování dat ---
-if os.path.exists("/Users/Marek/tableau_project/Rx_Tx/iface_stats.csv"):
-    df = pd.read_csv("/Users/Marek/tableau_project/Rx_Tx/iface_stats.csv")
+if os.path.exists("iface_stats.csv"):
+    df = pd.read_csv("iface_stats.csv")
     df["rx_MB"] = df["rx_bytes"].fillna(0).astype(float) / BYTES_IN_MB
     df["tx_MB"] = df["tx_bytes"].fillna(0).astype(float) / BYTES_IN_MB
     df["delta_rx_MB"] = df["rx_MB"].diff().fillna(0)
@@ -319,8 +319,8 @@ import csv
 
 BYTES_IN_MB = 1048576  # 1 MB = 1024*1024 B
 
-input_file = "/Users/Marek/tableau_project/Rx_Tx/iface_stats.csv"
-output_file = "/Users/Marek/tableau_project/Rx_Tx/rozdily_counter.csv"
+input_file = "iface_stats.csv"
+output_file = "rozdily_counter.csv"
 
 with open(input_file, newline="", encoding="utf-8") as f_in, \
      open(output_file, "w", newline="", encoding="utf-8") as f_out:
